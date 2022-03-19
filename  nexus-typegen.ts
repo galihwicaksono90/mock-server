@@ -44,6 +44,10 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  AuthObject: { // root type
+    user: NexusGenRootTypes['User']; // User!
+  }
+  Mutation: {};
   Post: { // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
@@ -51,6 +55,12 @@ export interface NexusGenObjects {
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
   Query: {};
+  User: { // root type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: number; // Int!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+    username: string; // String!
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -64,6 +74,14 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  AuthObject: { // field return type
+    user: NexusGenRootTypes['User']; // User!
+  }
+  Mutation: { // field return type
+    login: NexusGenRootTypes['User']; // User!
+    logout: boolean | null; // Boolean
+    register: NexusGenRootTypes['User']; // User!
+  }
   Post: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
@@ -71,11 +89,27 @@ export interface NexusGenFieldTypes {
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
   Query: { // field return type
+    me: NexusGenRootTypes['User'] | null; // User
     posts: NexusGenRootTypes['Post'][]; // [Post!]!
+    users: NexusGenRootTypes['User'][]; // [User!]!
+  }
+  User: { // field return type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: number; // Int!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+    username: string; // String!
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  AuthObject: { // field return type name
+    user: 'User'
+  }
+  Mutation: { // field return type name
+    login: 'User'
+    logout: 'Boolean'
+    register: 'User'
+  }
   Post: { // field return type name
     createdAt: 'DateTime'
     id: 'Int'
@@ -83,11 +117,29 @@ export interface NexusGenFieldTypeNames {
     updatedAt: 'DateTime'
   }
   Query: { // field return type name
+    me: 'User'
     posts: 'Post'
+    users: 'User'
+  }
+  User: { // field return type name
+    createdAt: 'DateTime'
+    id: 'Int'
+    updatedAt: 'DateTime'
+    username: 'String'
   }
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    login: { // args
+      password: string; // String!
+      username: string; // String!
+    }
+    register: { // args
+      password: string; // String!
+      username: string; // String!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
