@@ -1,6 +1,8 @@
 import { makeSchema } from "nexus";
 import { join } from "path";
+import { fieldAuthorizePlugin } from "nexus";
 import * as types from "./graphql";
+import { UserInputError } from "apollo-server-core";
 
 export const schema = makeSchema({
   types,
@@ -12,4 +14,14 @@ export const schema = makeSchema({
     module: join(__dirname, "..", "./src/context.ts"),
     export: "Context",
   },
+  plugins: [
+    fieldAuthorizePlugin({
+      formatError: ({ error, ctx, root, info }) => {
+        // console.log("------------------------------");
+        // console.log("info");
+        // console.log("------------------------------");
+        throw new UserInputError("hello");
+      },
+    }),
+  ],
 });

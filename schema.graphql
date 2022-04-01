@@ -2,29 +2,43 @@
 ### Do not make changes to this file directly
 
 
-type AuthObject {
-  user: User!
-}
+union Auth = FieldErrors | User
 
 """
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
 scalar DateTime
 
+type FieldError {
+  field: String
+  message: String
+}
+
+type FieldErrors {
+  errors: [FieldError]
+}
+
 type Mutation {
-  login(password: String!, username: String!): User!
+  createPost(title: String!): PostPayload!
+  deletePost(id: Int!): Post!
+  login(password: String!, username: String!): Auth
   logout: Boolean
-  register(password: String!, username: String!): User!
+  register(password: String!, username: String!): Auth!
 }
 
 type Post {
   createdAt: DateTime!
+  createdBy: User
   id: Int!
   title: String!
   updatedAt: DateTime!
 }
 
+union PostPayload = FieldErrors | Post
+
 type Query {
+  getPostById(id: Int!): Post!
+  getUserPosts: [Post]!
   me: User
   posts: [Post!]!
   users: [User!]!
@@ -33,6 +47,7 @@ type Query {
 type User {
   createdAt: DateTime!
   id: Int!
+  posts: [Post!]!
   updatedAt: DateTime!
   username: String!
 }

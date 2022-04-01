@@ -1,4 +1,5 @@
 import { objectType, extendType } from "nexus";
+import { isAuth } from "../utils";
 
 export const User = objectType({
   name: "User",
@@ -7,6 +8,11 @@ export const User = objectType({
     t.nonNull.string("username");
     t.nonNull.dateTime("createdAt");
     t.nonNull.dateTime("updatedAt");
+    t.nonNull.list.nonNull.field("posts", {
+      type: "Post",
+      resolve: (parent, _args, ctx) =>
+        ctx.prisma.user.findUnique({ where: { id: parent.id } }).posts(),
+    });
   },
 });
 
@@ -15,16 +21,11 @@ export const UserQuery = extendType({
   definition: (t) => {
     t.field("me", {
       type: "User",
+      authorize: isAuth,
       resolve: async (_parent, _args, ctx) => {
-        const userId = ctx.req.session.userId;
-
-        if (!userId) {
-          return null;
-        }
-
         const user = await ctx.prisma.user.findUnique({
           where: {
-            id: userId,
+            id: ctx.userId,
           },
         });
 
@@ -35,7 +36,6 @@ export const UserQuery = extendType({
         return user;
       },
     });
-
     t.nonNull.list.nonNull.field("users", {
       type: "User",
       resolve: (_parent, _args, ctx) => {
