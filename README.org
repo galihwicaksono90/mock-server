@@ -1,12 +1,12 @@
 #+TITLE: Graphql server boilerplate
 * Stacks
-** Express
-** Apollo Server Express
-** graphql nexus
-** prisma 2
-** argon 2
-** redis
-** nodemailer
+- Express
+- Apollo Server Express
+- Graphql nexus
+- Prisma 2
+- Argon2
+- Redis
+- Nodemailer
 
 * Authentication
 The authentication used in this boiler is http-only cookie based token stored in redis.
