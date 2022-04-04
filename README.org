@@ -1,2 +1,12 @@
-#+TITLE: Raedme
-* Testing
+#+TITLE: Graphql server boilerplate
+* Stacks
+** Express
+** Apollo Server Express
+** graphql nexus
+** prisma 2
+** argon 2
+** redis
+** nodemailer
+
+* Authentication
+The authentication used in this boiler is http-only cookie based token stored in redis.
