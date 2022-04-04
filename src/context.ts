@@ -7,6 +7,7 @@ export interface Context {
   prisma: PrismaClient;
   req: Request;
   res: Response;
+  userId?: number;
 }
 
 export const context = ({
@@ -20,5 +21,6 @@ export const context = ({
     prisma,
     req,
     res,
+    userId: req.session.userId,
   };
 };

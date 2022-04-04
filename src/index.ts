@@ -8,6 +8,7 @@ import { createClient } from "redis";
 import connectRedis from "connect-redis";
 import cors from "cors";
 import { COOKIE_NAME, __prod__ } from "./constants";
+import { sendEmail } from "utils";
 
 const port = 4000;
 
@@ -20,6 +21,7 @@ declare module "express-session" {
 }
 
 const main = async () => {
+  // sendEmail("bob@bob.com", "Excellent performance!");
   const app = express();
 
   const redisClient = createClient({ legacyMode: true });
@@ -58,6 +60,7 @@ const main = async () => {
     schema,
     context,
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
+    debug: true,
   });
 
   await server.start();

@@ -1,14 +1,16 @@
-import { objectType, extendType, nonNull, stringArg } from "nexus";
-import { UserInputError } from "apollo-server-express";
+import { objectType, extendType, nonNull, stringArg, unionType } from "nexus";
 import argon2 from "argon2";
 import { COOKIE_NAME } from "../constants";
 
-export const Auth = objectType({
-  name: "AuthObject",
+export const Auth = unionType({
+  name: "Auth",
   definition: (t) => {
-    t.nonNull.field("user", {
-      type: "User",
-    });
+    t.members("User", "FieldErrors");
+  },
+  resolveType(data) {
+    const __typename =
+      "password" in data ? "User" : "errors" ? "FieldErrors" : null;
+    return __typename;
   },
 });
 
@@ -16,12 +18,12 @@ export const AuthMutation = extendType({
   type: "Mutation",
   definition: (t) => {
     t.nonNull.field("register", {
-      type: "User",
+      type: "Auth",
       args: {
         username: nonNull(stringArg()),
         password: nonNull(stringArg()),
       },
-      resolve: async (parent, args, ctx) => {
+      resolve: async (_parent, args, ctx) => {
         const { password, username } = args;
 
         const hashedPassword = await argon2.hash(password);
@@ -36,22 +38,30 @@ export const AuthMutation = extendType({
 
           ctx.req.session.userId = user.id;
 
-          return user;
+          return { ...user, __typename: "User" };
         } catch (error) {
-          console.log({ error });
-          throw new UserInputError("Username is already taken");
+          return {
+            __typename: "FieldsErrors",
+            errors: [
+              {
+                field: "username",
+                message: "Username is already taken",
+              },
+            ],
+          };
         }
       },
     });
 
-    t.nonNull.field("login", {
-      type: "User",
+    t.field("login", {
+      type: "Auth",
       args: {
         username: nonNull(stringArg()),
         password: nonNull(stringArg()),
       },
-      resolve: async (parent, args, ctx) => {
+      async resolve(parent, args, ctx) {
         const { password, username } = args;
+
         const user = await ctx.prisma.user.findUnique({
           where: {
             username,
@@ -59,18 +69,35 @@ export const AuthMutation = extendType({
         });
 
         if (!user) {
-          throw new UserInputError("Username does not exist");
+          return {
+            __typename: "FieldErrors",
+            errors: [
+              {
+                field: "username",
+                message: "Username not found",
+                __typename: "FieldError",
+              },
+            ],
+          };
         }
 
         const valid = await argon2.verify(user.password, password);
 
         if (!valid) {
-          throw new UserInputError("Password does not match");
+          return {
+            __typename: "FieldErrors",
+            errors: [
+              {
+                field: "password",
+                message: "Wrong Password",
+              },
+            ],
+          };
         }
 
         ctx.req.session.userId = user.id;
 
-        return user;
+        return { ...user, __typename: "User" };
       },
     });
 

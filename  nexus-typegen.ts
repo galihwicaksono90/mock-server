@@ -5,6 +5,7 @@
 
 
 import type { Context } from "./src/context"
+import type { FieldAuthorizeResolver } from "nexus/dist/plugins/fieldAuthorizePlugin"
 import type { core } from "nexus"
 declare global {
   interface NexusGenCustomInputMethods<TypeName extends string> {
@@ -44,8 +45,12 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
-  AuthObject: { // root type
-    user: NexusGenRootTypes['User']; // User!
+  FieldError: { // root type
+    field?: string | null; // String
+    message?: string | null; // String
+  }
+  FieldErrors: { // root type
+    errors?: Array<NexusGenRootTypes['FieldError'] | null> | null; // [FieldError]
   }
   Mutation: {};
   Post: { // root type
@@ -67,28 +72,39 @@ export interface NexusGenInterfaces {
 }
 
 export interface NexusGenUnions {
+  Auth: NexusGenRootTypes['FieldErrors'] | NexusGenRootTypes['User'];
+  PostPayload: NexusGenRootTypes['FieldErrors'] | NexusGenRootTypes['Post'];
 }
 
-export type NexusGenRootTypes = NexusGenObjects
+export type NexusGenRootTypes = NexusGenObjects & NexusGenUnions
 
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
-  AuthObject: { // field return type
-    user: NexusGenRootTypes['User']; // User!
+  FieldError: { // field return type
+    field: string | null; // String
+    message: string | null; // String
+  }
+  FieldErrors: { // field return type
+    errors: Array<NexusGenRootTypes['FieldError'] | null> | null; // [FieldError]
   }
   Mutation: { // field return type
-    login: NexusGenRootTypes['User']; // User!
+    createPost: NexusGenRootTypes['PostPayload']; // PostPayload!
+    deletePost: NexusGenRootTypes['Post']; // Post!
+    login: NexusGenRootTypes['Auth'] | null; // Auth
     logout: boolean | null; // Boolean
-    register: NexusGenRootTypes['User']; // User!
+    register: NexusGenRootTypes['Auth']; // Auth!
   }
   Post: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
+    createdBy: NexusGenRootTypes['User'] | null; // User
     id: number; // Int!
     title: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
   Query: { // field return type
+    getPostById: NexusGenRootTypes['Post']; // Post!
+    getUserPosts: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
     me: NexusGenRootTypes['User'] | null; // User
     posts: NexusGenRootTypes['Post'][]; // [Post!]!
     users: NexusGenRootTypes['User'][]; // [User!]!
@@ -96,27 +112,37 @@ export interface NexusGenFieldTypes {
   User: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
+    posts: NexusGenRootTypes['Post'][]; // [Post!]!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     username: string; // String!
   }
 }
 
 export interface NexusGenFieldTypeNames {
-  AuthObject: { // field return type name
-    user: 'User'
+  FieldError: { // field return type name
+    field: 'String'
+    message: 'String'
+  }
+  FieldErrors: { // field return type name
+    errors: 'FieldError'
   }
   Mutation: { // field return type name
-    login: 'User'
+    createPost: 'PostPayload'
+    deletePost: 'Post'
+    login: 'Auth'
     logout: 'Boolean'
-    register: 'User'
+    register: 'Auth'
   }
   Post: { // field return type name
     createdAt: 'DateTime'
+    createdBy: 'User'
     id: 'Int'
     title: 'String'
     updatedAt: 'DateTime'
   }
   Query: { // field return type name
+    getPostById: 'Post'
+    getUserPosts: 'Post'
     me: 'User'
     posts: 'Post'
     users: 'User'
@@ -124,6 +150,7 @@ export interface NexusGenFieldTypeNames {
   User: { // field return type name
     createdAt: 'DateTime'
     id: 'Int'
+    posts: 'Post'
     updatedAt: 'DateTime'
     username: 'String'
   }
@@ -131,6 +158,12 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createPost: { // args
+      title: string; // String!
+    }
+    deletePost: { // args
+      id: number; // Int!
+    }
     login: { // args
       password: string; // String!
       username: string; // String!
@@ -140,9 +173,16 @@ export interface NexusGenArgTypes {
       username: string; // String!
     }
   }
+  Query: {
+    getPostById: { // args
+      id: number; // Int!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
+  Auth: "FieldErrors" | "User"
+  PostPayload: "FieldErrors" | "Post"
 }
 
 export interface NexusGenTypeInterfaces {
@@ -158,11 +198,11 @@ export type NexusGenInterfaceNames = never;
 
 export type NexusGenScalarNames = keyof NexusGenScalars;
 
-export type NexusGenUnionNames = never;
+export type NexusGenUnionNames = keyof NexusGenUnions;
 
 export type NexusGenObjectsUsingAbstractStrategyIsTypeOf = never;
 
-export type NexusGenAbstractsUsingStrategyResolveType = never;
+export type NexusGenAbstractsUsingStrategyResolveType = "Auth" | "PostPayload";
 
 export type NexusGenFeaturesConfig = {
   abstractTypeStrategies: {
@@ -205,6 +245,15 @@ declare global {
   interface NexusGenPluginInputTypeConfig<TypeName extends string> {
   }
   interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {
+    /**
+     * Authorization for an individual field. Returning "true"
+     * or "Promise<true>" means the field can be accessed.
+     * Returning "false" or "Promise<false>" will respond
+     * with a "Not Authorized" error for the field.
+     * Returning or throwing an error will also prevent the
+     * resolver from executing.
+     */
+    authorize?: FieldAuthorizeResolver<TypeName, FieldName>
   }
   interface NexusGenPluginInputFieldConfig<TypeName extends string, FieldName extends string> {
   }
