@@ -60,6 +60,7 @@ const main = async () => {
     schema,
     context,
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
+    debug: true,
   });
 
   await server.start();

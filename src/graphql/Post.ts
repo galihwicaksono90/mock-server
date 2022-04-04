@@ -7,6 +7,7 @@ import {
   unionType,
 } from "nexus";
 import { isAuth } from "../utils";
+import { ApolloError } from "apollo-server-core";
 
 export const Post = objectType({
   name: "Post",
@@ -40,7 +41,9 @@ export const PostQuery = extendType({
   definition: (t) => {
     t.nonNull.list.nonNull.field("posts", {
       type: "Post",
-      resolve: (_parent, _args, ctx) => ctx.prisma.post.findMany(),
+      resolve: (_parent, _args, ctx) => {
+        return ctx.prisma.post.findMany();
+      },
     });
     t.nonNull.field("getPostById", {
       type: "Post",
@@ -115,6 +118,9 @@ export const PostMutation = extendType({
         const post = await ctx.prisma.post.findUnique({
           where: {
             id: postId,
+          },
+          select: {
+            postedById: true,
           },
         });
 

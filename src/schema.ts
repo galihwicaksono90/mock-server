@@ -2,7 +2,7 @@ import { makeSchema } from "nexus";
 import { join } from "path";
 import { fieldAuthorizePlugin } from "nexus";
 import * as types from "./graphql";
-import { UserInputError } from "apollo-server-core";
+import { UserInputError, AuthenticationError } from "apollo-server-core";
 
 export const schema = makeSchema({
   types,
@@ -16,12 +16,11 @@ export const schema = makeSchema({
   },
   plugins: [
     fieldAuthorizePlugin({
-      formatError: ({ error, ctx, root, info }) => {
-        // console.log("------------------------------");
-        // console.log("info");
-        // console.log("------------------------------");
-        throw new UserInputError("hello");
+      formatError: () => {
+        throw new AuthenticationError("Not authenticated", {
+          mantap: "matnap",
+        });
       },
-    }),
+   }),
   ],
 });

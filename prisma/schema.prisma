@@ -10,6 +10,22 @@ datasource db {
   url      = "file:./dev.db"
 }
 
+model User {
+  id          Int         @id @default(autoincrement())
+  username    String      @unique
+  password    String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  family      Family      @relation(name: "FamilyMembers", fields: [familyId], references: [id])
+  familyId    Int
+}
+
+model Family {
+  id          Int         @id @default(autoincrement())
+  members     User[]      @relation(name: "FamilyMembers")
+  head        User?       @relation(name: "FamilyHead")
+}
+
 model Post {
   id          Int         @id @default(autoincrement())
   title       String
@@ -17,13 +33,4 @@ model Post {
   updatedAt   DateTime    @updatedAt
   postedBy    User        @relation(name: "PostedBy", fields: [postedById], references: [id])
   postedById  Int
-}
-
-model User {
-  id          Int         @id @default(autoincrement())
-  username    String      @unique
-  password    String
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  posts       Post[]      @relation(name: "PostedBy")
 }
