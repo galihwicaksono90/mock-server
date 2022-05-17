@@ -2,7 +2,6 @@ import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { schema } from "./schema";
-import { context } from "./context";
 import session from "express-session";
 import { createClient } from "redis";
 import connectRedis from "connect-redis";
@@ -57,7 +56,6 @@ const main = async () => {
 
   const server = new ApolloServer({
     schema,
-    context,
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
     debug: true,
   });
