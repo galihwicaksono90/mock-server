@@ -6,7 +6,7 @@ type Article {
   description: String!
   id: Int!
   image: String!
-  postedAt: String!
+  postedAt: DateTime!
   title: String!
 }
 
@@ -71,7 +71,7 @@ type Merch {
 type News {
   author: String!
   content: String!
-  createdAt: String!
+  createdAt: DateTime!
   description: String!
   id: Int!
   image: String!
@@ -80,7 +80,7 @@ type News {
 }
 
 type Query {
-  getArticle(id: Int): Article
+  getArticle(id: Int!): Article
   getArticles(limit: Int!, type: ArticleType!): [Article!]!
   getCompanyJobs: [Company!]!
   getHeroImages(limit: Int!): [HeroImage]!

@@ -51,7 +51,7 @@ export interface NexusGenObjects {
     description: string; // String!
     id: number; // Int!
     image: string; // String!
-    postedAt: string; // String!
+    postedAt: NexusGenScalars['DateTime']; // DateTime!
     title: string; // String!
   }
   Company: { // root type
@@ -98,7 +98,7 @@ export interface NexusGenObjects {
   News: { // root type
     author: string; // String!
     content: string; // String!
-    createdAt: string; // String!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
     description: string; // String!
     id: number; // Int!
     image: string; // String!
@@ -129,7 +129,7 @@ export interface NexusGenFieldTypes {
     description: string; // String!
     id: number; // Int!
     image: string; // String!
-    postedAt: string; // String!
+    postedAt: NexusGenScalars['DateTime']; // DateTime!
     title: string; // String!
   }
   Company: { // field return type
@@ -176,7 +176,7 @@ export interface NexusGenFieldTypes {
   News: { // field return type
     author: string; // String!
     content: string; // String!
-    createdAt: string; // String!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
     description: string; // String!
     id: number; // Int!
     image: string; // String!
@@ -207,7 +207,7 @@ export interface NexusGenFieldTypeNames {
     description: 'String'
     id: 'Int'
     image: 'String'
-    postedAt: 'String'
+    postedAt: 'DateTime'
     title: 'String'
   }
   Company: { // field return type name
@@ -254,7 +254,7 @@ export interface NexusGenFieldTypeNames {
   News: { // field return type name
     author: 'String'
     content: 'String'
-    createdAt: 'String'
+    createdAt: 'DateTime'
     description: 'String'
     id: 'Int'
     image: 'String'
@@ -283,7 +283,7 @@ export interface NexusGenFieldTypeNames {
 export interface NexusGenArgTypes {
   Query: {
     getArticle: { // args
-      id?: number | null; // Int
+      id: number; // Int!
     }
     getArticles: { // args
       limit: number; // Int!
