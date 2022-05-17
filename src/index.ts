@@ -5,7 +5,7 @@ import { schema } from "./schema";
 // import session from "express-session";
 // // import { createClient } from "redis";
 // import connectRedis from "connect-redis";
-// import cors from "cors";
+import cors from "cors";
 import { COOKIE_NAME, __prod__ } from "./constants";
 
 const port = process.env.PORT || 4000;
@@ -28,13 +28,18 @@ const main = async () => {
   // });
   // redisClient.connect().catch(console.error);
 
-  // app.use(
-  //   cors({
-  //     origin: "http://localhost:3000",
-  //     credentials: true,
-  //   })
-  // );
-
+  var whitelist = ["https://studio.apollographql.com", "http://localhost:3000"];
+  var corsOptions = {
+    origin: function (origin, callback) {
+      if (whitelist.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  };
+  app.use(cors(corsOptions));
   // app.use(
   //   session({
   //     name: COOKIE_NAME,
