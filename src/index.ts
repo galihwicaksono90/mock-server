@@ -28,9 +28,8 @@ const main = async () => {
   // });
   // redisClient.connect().catch(console.error);
 
-  var whitelist = ["https://studio.apollographql.com", "http://localhost:3000"];
   var corsOptions = {
-    origin: "https://studio.apollographql.com",
+    origin: process.env.FRONTEND_URL,
     credentials: true,
   };
   app.use(cors(corsOptions));
