@@ -68,6 +68,7 @@ const main = async () => {
     schema,
     plugins: [ApolloServerPluginLandingPageLocalDefault()],
     debug: true,
+    introspection: true,
   });
 
   await server.start();
