@@ -29,9 +29,10 @@ const main = async () => {
   // redisClient.connect().catch(console.error);
 
   var corsOptions = {
-    origin: process.env.FRONTEND_URL,
+    origin: "*",
     credentials: true,
   };
+
   app.use(cors(corsOptions));
   // app.use(
   //   session({
@@ -63,7 +64,8 @@ const main = async () => {
 
   server.applyMiddleware({
     app,
-    cors: false,
+    path: "/graphql",
+    cors: corsOptions,
   });
 
   app.listen(port, () => {
