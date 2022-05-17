@@ -11,7 +11,7 @@ export const Article = objectType({
   definition: (t) => {
     t.nonNull.int("id");
     t.nonNull.string("title");
-    t.nonNull.dateTime("postedAt");
+    t.nonNull.string("postedAt");
     t.nonNull.string("description");
     t.nonNull.string("image");
   },

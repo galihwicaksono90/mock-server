@@ -23,7 +23,7 @@ export const News = objectType({
     t.nonNull.string("content");
     t.nonNull.string("image");
     t.nonNull.string("author");
-    t.nonNull.dateTime("createdAt");
+    t.nonNull.string("createdAt");
     t.nonNull.list.nonNull.string("tags");
   },
 });

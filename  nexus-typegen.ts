@@ -51,7 +51,7 @@ export interface NexusGenObjects {
     description: string; // String!
     id: number; // Int!
     image: string; // String!
-    postedAt: NexusGenScalars['DateTime']; // DateTime!
+    postedAt: string; // String!
     title: string; // String!
   }
   Company: { // root type
@@ -59,12 +59,12 @@ export interface NexusGenObjects {
     city: string; // String!
     description: string; // String!
     email: string; // String!
-    expiredAt: NexusGenScalars['DateTime']; // DateTime!
+    expiredAt: string; // String!
     id: number; // Int!
     image: string; // String!
     jobs: NexusGenRootTypes['Job'][]; // [Job!]!
     name: string; // String!
-    postedAt: NexusGenScalars['DateTime']; // DateTime!
+    postedAt: string; // String!
   }
   FieldError: { // root type
     field?: string | null; // String
@@ -98,7 +98,7 @@ export interface NexusGenObjects {
   News: { // root type
     author: string; // String!
     content: string; // String!
-    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    createdAt: string; // String!
     description: string; // String!
     id: number; // Int!
     image: string; // String!
@@ -129,7 +129,7 @@ export interface NexusGenFieldTypes {
     description: string; // String!
     id: number; // Int!
     image: string; // String!
-    postedAt: NexusGenScalars['DateTime']; // DateTime!
+    postedAt: string; // String!
     title: string; // String!
   }
   Company: { // field return type
@@ -137,12 +137,12 @@ export interface NexusGenFieldTypes {
     city: string; // String!
     description: string; // String!
     email: string; // String!
-    expiredAt: NexusGenScalars['DateTime']; // DateTime!
+    expiredAt: string; // String!
     id: number; // Int!
     image: string; // String!
     jobs: NexusGenRootTypes['Job'][]; // [Job!]!
     name: string; // String!
-    postedAt: NexusGenScalars['DateTime']; // DateTime!
+    postedAt: string; // String!
   }
   FieldError: { // field return type
     field: string | null; // String
@@ -176,7 +176,7 @@ export interface NexusGenFieldTypes {
   News: { // field return type
     author: string; // String!
     content: string; // String!
-    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    createdAt: string; // String!
     description: string; // String!
     id: number; // Int!
     image: string; // String!
@@ -207,7 +207,7 @@ export interface NexusGenFieldTypeNames {
     description: 'String'
     id: 'Int'
     image: 'String'
-    postedAt: 'DateTime'
+    postedAt: 'String'
     title: 'String'
   }
   Company: { // field return type name
@@ -215,12 +215,12 @@ export interface NexusGenFieldTypeNames {
     city: 'String'
     description: 'String'
     email: 'String'
-    expiredAt: 'DateTime'
+    expiredAt: 'String'
     id: 'Int'
     image: 'String'
     jobs: 'Job'
     name: 'String'
-    postedAt: 'DateTime'
+    postedAt: 'String'
   }
   FieldError: { // field return type name
     field: 'String'
@@ -254,7 +254,7 @@ export interface NexusGenFieldTypeNames {
   News: { // field return type name
     author: 'String'
     content: 'String'
-    createdAt: 'DateTime'
+    createdAt: 'String'
     description: 'String'
     id: 'Int'
     image: 'String'

@@ -6,7 +6,7 @@ type Article {
   description: String!
   id: Int!
   image: String!
-  postedAt: DateTime!
+  postedAt: String!
   title: String!
 }
 
@@ -20,12 +20,12 @@ type Company {
   city: String!
   description: String!
   email: String!
-  expiredAt: DateTime!
+  expiredAt: String!
   id: Int!
   image: String!
   jobs: [Job!]!
   name: String!
-  postedAt: DateTime!
+  postedAt: String!
 }
 
 """
@@ -71,7 +71,7 @@ type Merch {
 type News {
   author: String!
   content: String!
-  createdAt: DateTime!
+  createdAt: String!
   description: String!
   id: Int!
   image: String!

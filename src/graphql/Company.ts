@@ -50,8 +50,8 @@ export const Company = objectType({
   definition: (t) => {
     t.nonNull.int("id");
     t.nonNull.string("name");
-    t.nonNull.dateTime("postedAt");
-    t.nonNull.dateTime("expiredAt");
+    t.nonNull.string("postedAt");
+    t.nonNull.string("expiredAt");
     t.nonNull.string("description");
     t.nonNull.string("address");
     t.nonNull.string("email");
