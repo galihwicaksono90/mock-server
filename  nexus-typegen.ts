@@ -95,7 +95,6 @@ export interface NexusGenObjects {
     name: string; // String!
     price: string; // String!
   }
-  Mutation: {};
   News: { // root type
     author: string; // String!
     content: string; // String!
@@ -107,13 +106,6 @@ export interface NexusGenObjects {
     title: string; // String!
   }
   Query: {};
-  User: { // root type
-    createdAt: NexusGenScalars['DateTime']; // DateTime!
-    id: number; // Int!
-    name: string; // String!
-    updatedAt: NexusGenScalars['DateTime']; // DateTime!
-    username: string; // String!
-  }
   Vacancy: { // root type
     company: string; // String!
     id: number; // Int!
@@ -126,10 +118,9 @@ export interface NexusGenInterfaces {
 }
 
 export interface NexusGenUnions {
-  Auth: NexusGenRootTypes['FieldErrors'] | NexusGenRootTypes['User'];
 }
 
-export type NexusGenRootTypes = NexusGenObjects & NexusGenUnions
+export type NexusGenRootTypes = NexusGenObjects
 
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
@@ -182,11 +173,6 @@ export interface NexusGenFieldTypes {
     name: string; // String!
     price: string; // String!
   }
-  Mutation: { // field return type
-    login: NexusGenRootTypes['Auth'] | null; // Auth
-    logout: boolean | null; // Boolean
-    register: NexusGenRootTypes['Auth']; // Auth!
-  }
   News: { // field return type
     author: string; // String!
     content: string; // String!
@@ -207,15 +193,6 @@ export interface NexusGenFieldTypes {
     getNews: NexusGenRootTypes['News'] | null; // News
     getNewsItems: NexusGenRootTypes['News'][]; // [News!]!
     getVacancies: Array<NexusGenRootTypes['Vacancy'] | null>; // [Vacancy]!
-    me: NexusGenRootTypes['User'] | null; // User
-    users: NexusGenRootTypes['User'][]; // [User!]!
-  }
-  User: { // field return type
-    createdAt: NexusGenScalars['DateTime']; // DateTime!
-    id: number; // Int!
-    name: string; // String!
-    updatedAt: NexusGenScalars['DateTime']; // DateTime!
-    username: string; // String!
   }
   Vacancy: { // field return type
     company: string; // String!
@@ -274,11 +251,6 @@ export interface NexusGenFieldTypeNames {
     name: 'String'
     price: 'String'
   }
-  Mutation: { // field return type name
-    login: 'Auth'
-    logout: 'Boolean'
-    register: 'Auth'
-  }
   News: { // field return type name
     author: 'String'
     content: 'String'
@@ -299,15 +271,6 @@ export interface NexusGenFieldTypeNames {
     getNews: 'News'
     getNewsItems: 'News'
     getVacancies: 'Vacancy'
-    me: 'User'
-    users: 'User'
-  }
-  User: { // field return type name
-    createdAt: 'DateTime'
-    id: 'Int'
-    name: 'String'
-    updatedAt: 'DateTime'
-    username: 'String'
   }
   Vacancy: { // field return type name
     company: 'String'
@@ -318,17 +281,6 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
-  Mutation: {
-    login: { // args
-      password: string; // String!
-      username: string; // String!
-    }
-    register: { // args
-      name: string; // String!
-      password: string; // String!
-      username: string; // String!
-    }
-  }
   Query: {
     getArticle: { // args
       id?: number | null; // Int
@@ -360,7 +312,6 @@ export interface NexusGenArgTypes {
 }
 
 export interface NexusGenAbstractTypeMembers {
-  Auth: "FieldErrors" | "User"
 }
 
 export interface NexusGenTypeInterfaces {
@@ -376,11 +327,11 @@ export type NexusGenInterfaceNames = never;
 
 export type NexusGenScalarNames = keyof NexusGenScalars;
 
-export type NexusGenUnionNames = keyof NexusGenUnions;
+export type NexusGenUnionNames = never;
 
 export type NexusGenObjectsUsingAbstractStrategyIsTypeOf = never;
 
-export type NexusGenAbstractsUsingStrategyResolveType = "Auth";
+export type NexusGenAbstractsUsingStrategyResolveType = never;
 
 export type NexusGenFeaturesConfig = {
   abstractTypeStrategies: {

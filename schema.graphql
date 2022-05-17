@@ -15,8 +15,6 @@ enum ArticleType {
   scientific
 }
 
-union Auth = FieldErrors | User
-
 type Company {
   address: String!
   city: String!
@@ -70,12 +68,6 @@ type Merch {
   price: String!
 }
 
-type Mutation {
-  login(password: String!, username: String!): Auth
-  logout: Boolean
-  register(name: String!, password: String!, username: String!): Auth!
-}
-
 type News {
   author: String!
   content: String!
@@ -97,16 +89,6 @@ type Query {
   getNews(id: Int!): News
   getNewsItems(limit: Int!): [News!]!
   getVacancies(limit: Int, type: VacancyType!): [Vacancy]!
-  me: User
-  users: [User!]!
-}
-
-type User {
-  createdAt: DateTime!
-  id: Int!
-  name: String!
-  updatedAt: DateTime!
-  username: String!
 }
 
 type Vacancy {
