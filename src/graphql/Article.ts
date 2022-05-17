@@ -11,7 +11,7 @@ export const Article = objectType({
   definition: (t) => {
     t.nonNull.int("id");
     t.nonNull.string("title");
-    t.nonNull.string("postedAt");
+    t.nonNull.dateTime("postedAt");
     t.nonNull.string("description");
     t.nonNull.string("image");
   },
@@ -21,7 +21,7 @@ const createArticle = (id: number) => ({
   id,
   title: faker.lorem.sentence(),
   description: faker.lorem.paragraph(),
-  postedAt: faker.date.past(),
+  postedAt: faker.date.past().toISOString(),
   image: faker.image.technics(680, 480, true),
 });
 
@@ -31,10 +31,10 @@ export const ArticleQuery = extendType({
     t.field("getArticle", {
       type: "Article",
       args: {
-        id: intArg(),
+        id: nonNull(intArg()),
       },
       resolve: (_parent, args, _ctx) => {
-        return createArticle(args.id ?? 0);
+        return createArticle(args.id);
       },
     });
     t.nonNull.list.nonNull.field("getArticles", {

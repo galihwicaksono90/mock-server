@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --transpile-only --no-notify --exit-child src/index.ts",
     "generate": "ts-node --transpile-only src/schema",
-    "build": "npm run generate && tsc",
+    "build": "tsc",
     "start": "ts-node src/index.ts"
   },
   "devDependencies": {

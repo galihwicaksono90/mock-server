@@ -10,7 +10,7 @@ const createNews = (id: number) => ({
   content: faker.lorem.paragraphs(faker.mersenne.rand(10, 4)),
   image: faker.image.technics(),
   author: faker.name.findName(),
-  createdAt: faker.date.past(),
+  createdAt: faker.date.past().toISOString(),
   tags: faker.helpers.arrayElements(tags),
 });
 
@@ -23,7 +23,7 @@ export const News = objectType({
     t.nonNull.string("content");
     t.nonNull.string("image");
     t.nonNull.string("author");
-    t.nonNull.string("createdAt");
+    t.nonNull.dateTime("createdAt");
     t.nonNull.list.nonNull.string("tags");
   },
 });
