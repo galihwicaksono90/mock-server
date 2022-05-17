@@ -39,12 +39,12 @@ export const ArticleQuery = extendType({
     });
     t.nonNull.list.nonNull.field("getArticles", {
       type: "Article",
-      args: { limit: intArg(), type: nonNull(ArticleType) },
+      args: { limit: nonNull(intArg()), type: nonNull(ArticleType) },
       resolve: async (_parent, args, _ctx) => {
         const { limit = 4 } = args;
         const articles = [];
 
-        for (let i = 0; i < limit ?? 4; i++) {
+        for (let i = 0; i < (limit || 4); i++) {
           articles.push(createArticle(i));
         }
 

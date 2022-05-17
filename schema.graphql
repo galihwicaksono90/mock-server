@@ -71,8 +71,6 @@ type Merch {
 }
 
 type Mutation {
-  createPost(title: String!): PostPayload!
-  deletePost(id: Int!): Post!
   login(password: String!, username: String!): Auth
   logout: Boolean
   register(name: String!, password: String!, username: String!): Auth!
@@ -89,30 +87,17 @@ type News {
   title: String!
 }
 
-type Post {
-  createdAt: DateTime!
-  createdBy: User
-  id: Int!
-  title: String!
-  updatedAt: DateTime!
-}
-
-union PostPayload = FieldErrors | Post
-
 type Query {
   getArticle(id: Int): Article
-  getArticles(limit: Int, type: ArticleType!): [Article!]!
+  getArticles(limit: Int!, type: ArticleType!): [Article!]!
   getCompanyJobs: [Company!]!
   getHeroImages(limit: Int!): [HeroImage]!
   getMembers(limit: Int!): [Member!]!
   getMerchList(limit: Int!): [Merch!]!
   getNews(id: Int!): News
   getNewsItems(limit: Int!): [News!]!
-  getPostById(id: Int!): Post!
-  getUserPosts: [Post]!
   getVacancies(limit: Int, type: VacancyType!): [Vacancy]!
   me: User
-  posts: [Post!]!
   users: [User!]!
 }
 

@@ -2,7 +2,6 @@ export * from "./Article";
 export * from "./AuthPayload";
 export * from "./Error";
 export * from "./News";
-export * from "./Post";
 export * from "./HeroImage";
 export * from "./Company";
 export * from "./Member";

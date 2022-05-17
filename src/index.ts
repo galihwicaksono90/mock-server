@@ -1,6 +1,6 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
 import { schema } from "./schema";
 import { context } from "./context";
 import session from "express-session";
@@ -58,7 +58,7 @@ const main = async () => {
   const server = new ApolloServer({
     schema,
     context,
-    plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
+    plugins: [ApolloServerPluginLandingPageLocalDefault],
     debug: true,
   });
 

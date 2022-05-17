@@ -106,12 +106,6 @@ export interface NexusGenObjects {
     tags: string[]; // [String!]!
     title: string; // String!
   }
-  Post: { // root type
-    createdAt: NexusGenScalars['DateTime']; // DateTime!
-    id: number; // Int!
-    title: string; // String!
-    updatedAt: NexusGenScalars['DateTime']; // DateTime!
-  }
   Query: {};
   User: { // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -133,7 +127,6 @@ export interface NexusGenInterfaces {
 
 export interface NexusGenUnions {
   Auth: NexusGenRootTypes['FieldErrors'] | NexusGenRootTypes['User'];
-  PostPayload: NexusGenRootTypes['FieldErrors'] | NexusGenRootTypes['Post'];
 }
 
 export type NexusGenRootTypes = NexusGenObjects & NexusGenUnions
@@ -190,8 +183,6 @@ export interface NexusGenFieldTypes {
     price: string; // String!
   }
   Mutation: { // field return type
-    createPost: NexusGenRootTypes['PostPayload']; // PostPayload!
-    deletePost: NexusGenRootTypes['Post']; // Post!
     login: NexusGenRootTypes['Auth'] | null; // Auth
     logout: boolean | null; // Boolean
     register: NexusGenRootTypes['Auth']; // Auth!
@@ -206,13 +197,6 @@ export interface NexusGenFieldTypes {
     tags: string[]; // [String!]!
     title: string; // String!
   }
-  Post: { // field return type
-    createdAt: NexusGenScalars['DateTime']; // DateTime!
-    createdBy: NexusGenRootTypes['User'] | null; // User
-    id: number; // Int!
-    title: string; // String!
-    updatedAt: NexusGenScalars['DateTime']; // DateTime!
-  }
   Query: { // field return type
     getArticle: NexusGenRootTypes['Article'] | null; // Article
     getArticles: NexusGenRootTypes['Article'][]; // [Article!]!
@@ -222,11 +206,8 @@ export interface NexusGenFieldTypes {
     getMerchList: NexusGenRootTypes['Merch'][]; // [Merch!]!
     getNews: NexusGenRootTypes['News'] | null; // News
     getNewsItems: NexusGenRootTypes['News'][]; // [News!]!
-    getPostById: NexusGenRootTypes['Post']; // Post!
-    getUserPosts: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
     getVacancies: Array<NexusGenRootTypes['Vacancy'] | null>; // [Vacancy]!
     me: NexusGenRootTypes['User'] | null; // User
-    posts: NexusGenRootTypes['Post'][]; // [Post!]!
     users: NexusGenRootTypes['User'][]; // [User!]!
   }
   User: { // field return type
@@ -294,8 +275,6 @@ export interface NexusGenFieldTypeNames {
     price: 'String'
   }
   Mutation: { // field return type name
-    createPost: 'PostPayload'
-    deletePost: 'Post'
     login: 'Auth'
     logout: 'Boolean'
     register: 'Auth'
@@ -310,13 +289,6 @@ export interface NexusGenFieldTypeNames {
     tags: 'String'
     title: 'String'
   }
-  Post: { // field return type name
-    createdAt: 'DateTime'
-    createdBy: 'User'
-    id: 'Int'
-    title: 'String'
-    updatedAt: 'DateTime'
-  }
   Query: { // field return type name
     getArticle: 'Article'
     getArticles: 'Article'
@@ -326,11 +298,8 @@ export interface NexusGenFieldTypeNames {
     getMerchList: 'Merch'
     getNews: 'News'
     getNewsItems: 'News'
-    getPostById: 'Post'
-    getUserPosts: 'Post'
     getVacancies: 'Vacancy'
     me: 'User'
-    posts: 'Post'
     users: 'User'
   }
   User: { // field return type name
@@ -350,12 +319,6 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
-    createPost: { // args
-      title: string; // String!
-    }
-    deletePost: { // args
-      id: number; // Int!
-    }
     login: { // args
       password: string; // String!
       username: string; // String!
@@ -371,7 +334,7 @@ export interface NexusGenArgTypes {
       id?: number | null; // Int
     }
     getArticles: { // args
-      limit?: number | null; // Int
+      limit: number; // Int!
       type: NexusGenEnums['ArticleType']; // ArticleType!
     }
     getHeroImages: { // args
@@ -389,9 +352,6 @@ export interface NexusGenArgTypes {
     getNewsItems: { // args
       limit: number; // Int!
     }
-    getPostById: { // args
-      id: number; // Int!
-    }
     getVacancies: { // args
       limit?: number | null; // Int
       type: NexusGenEnums['VacancyType']; // VacancyType!
@@ -401,7 +361,6 @@ export interface NexusGenArgTypes {
 
 export interface NexusGenAbstractTypeMembers {
   Auth: "FieldErrors" | "User"
-  PostPayload: "FieldErrors" | "Post"
 }
 
 export interface NexusGenTypeInterfaces {
@@ -421,7 +380,7 @@ export type NexusGenUnionNames = keyof NexusGenUnions;
 
 export type NexusGenObjectsUsingAbstractStrategyIsTypeOf = never;
 
-export type NexusGenAbstractsUsingStrategyResolveType = "Auth" | "PostPayload";
+export type NexusGenAbstractsUsingStrategyResolveType = "Auth";
 
 export type NexusGenFeaturesConfig = {
   abstractTypeStrategies: {
