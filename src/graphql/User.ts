@@ -5,14 +5,15 @@ export const User = objectType({
   name: "User",
   definition: (t) => {
     t.nonNull.int("id");
+    t.nonNull.string("name");
     t.nonNull.string("username");
     t.nonNull.dateTime("createdAt");
     t.nonNull.dateTime("updatedAt");
-    t.nonNull.list.nonNull.field("posts", {
-      type: "Post",
-      resolve: (parent, _args, ctx) =>
-        ctx.prisma.user.findUnique({ where: { id: parent.id } }).posts(),
-    });
+    // t.nonNull.list.nonNull.field("posts", {
+    //   type: "Post",
+    //   resolve: (parent, _args, ctx) =>
+    //     ctx.prisma.user.findUnique({ where: { id: parent.id } }).posts(),
+    // });
   },
 });
 
@@ -36,6 +37,7 @@ export const UserQuery = extendType({
         return user;
       },
     });
+
     t.nonNull.list.nonNull.field("users", {
       type: "User",
       resolve: (_parent, _args, ctx) => {

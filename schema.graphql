@@ -2,7 +2,33 @@
 ### Do not make changes to this file directly
 
 
+type Article {
+  description: String!
+  id: Int!
+  image: String!
+  postedAt: DateTime!
+  title: String!
+}
+
+enum ArticleType {
+  nonScientific
+  scientific
+}
+
 union Auth = FieldErrors | User
+
+type Company {
+  address: String!
+  city: String!
+  description: String!
+  email: String!
+  expiredAt: DateTime!
+  id: Int!
+  image: String!
+  jobs: [Job!]!
+  name: String!
+  postedAt: DateTime!
+}
 
 """
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
@@ -18,12 +44,49 @@ type FieldErrors {
   errors: [FieldError]
 }
 
+type HeroImage {
+  id: Int!
+  image: String!
+}
+
+type Job {
+  description: String!
+  id: Int!
+  qualifications: [String!]!
+  title: String!
+}
+
+type Member {
+  id: Int!
+  image: String!
+  name: String!
+  title: String!
+}
+
+type Merch {
+  id: Int!
+  image: String!
+  name: String!
+  price: String!
+}
+
 type Mutation {
   createPost(title: String!): PostPayload!
   deletePost(id: Int!): Post!
   login(password: String!, username: String!): Auth
   logout: Boolean
-  register(password: String!, username: String!): Auth!
+  register(name: String!, password: String!, username: String!): Auth!
+}
+
+type News {
+  author: String!
+  content: String!
+  createdAt: DateTime!
+  description: String!
+  id: Int!
+  image: String!
+  tags: [String!]!
+  title: String!
 }
 
 type Post {
@@ -37,8 +100,17 @@ type Post {
 union PostPayload = FieldErrors | Post
 
 type Query {
+  getArticle(id: Int): Article
+  getArticles(limit: Int, type: ArticleType!): [Article!]!
+  getCompanyJobs: [Company!]!
+  getHeroImages(limit: Int!): [HeroImage]!
+  getMembers(limit: Int!): [Member!]!
+  getMerchList(limit: Int!): [Merch!]!
+  getNews(id: Int!): News
+  getNewsItems(limit: Int!): [News!]!
   getPostById(id: Int!): Post!
   getUserPosts: [Post]!
+  getVacancies(limit: Int, type: VacancyType!): [Vacancy]!
   me: User
   posts: [Post!]!
   users: [User!]!
@@ -47,7 +119,19 @@ type Query {
 type User {
   createdAt: DateTime!
   id: Int!
-  posts: [Post!]!
+  name: String!
   updatedAt: DateTime!
   username: String!
+}
+
+type Vacancy {
+  company: String!
+  id: Int!
+  title: String!
+  type: String!
+}
+
+enum VacancyType {
+  job
+  scholarship
 }

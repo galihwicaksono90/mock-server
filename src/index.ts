@@ -8,9 +8,8 @@ import { createClient } from "redis";
 import connectRedis from "connect-redis";
 import cors from "cors";
 import { COOKIE_NAME, __prod__ } from "./constants";
-import { sendEmail } from "utils";
 
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 const RedisStore = connectRedis(session);
 

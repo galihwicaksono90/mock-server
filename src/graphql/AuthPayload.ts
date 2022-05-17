@@ -20,11 +20,12 @@ export const AuthMutation = extendType({
     t.nonNull.field("register", {
       type: "Auth",
       args: {
+        name: nonNull(stringArg()),
         username: nonNull(stringArg()),
         password: nonNull(stringArg()),
       },
       resolve: async (_parent, args, ctx) => {
-        const { password, username } = args;
+        const { password, username, name } = args;
 
         const hashedPassword = await argon2.hash(password);
 
@@ -32,6 +33,7 @@ export const AuthMutation = extendType({
           const user = await ctx.prisma.user.create({
             data: {
               username,
+              name,
               password: hashedPassword,
             },
           });
@@ -74,7 +76,7 @@ export const AuthMutation = extendType({
             errors: [
               {
                 field: "username",
-                message: "Username not found",
+                message: "username not found",
                 __typename: "FieldError",
               },
             ],

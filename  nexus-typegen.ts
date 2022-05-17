@@ -33,6 +33,8 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  ArticleType: "nonScientific" | "scientific"
+  VacancyType: "job" | "scholarship"
 }
 
 export interface NexusGenScalars {
@@ -45,6 +47,25 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Article: { // root type
+    description: string; // String!
+    id: number; // Int!
+    image: string; // String!
+    postedAt: NexusGenScalars['DateTime']; // DateTime!
+    title: string; // String!
+  }
+  Company: { // root type
+    address: string; // String!
+    city: string; // String!
+    description: string; // String!
+    email: string; // String!
+    expiredAt: NexusGenScalars['DateTime']; // DateTime!
+    id: number; // Int!
+    image: string; // String!
+    jobs: NexusGenRootTypes['Job'][]; // [Job!]!
+    name: string; // String!
+    postedAt: NexusGenScalars['DateTime']; // DateTime!
+  }
   FieldError: { // root type
     field?: string | null; // String
     message?: string | null; // String
@@ -52,7 +73,39 @@ export interface NexusGenObjects {
   FieldErrors: { // root type
     errors?: Array<NexusGenRootTypes['FieldError'] | null> | null; // [FieldError]
   }
+  HeroImage: { // root type
+    id: number; // Int!
+    image: string; // String!
+  }
+  Job: { // root type
+    description: string; // String!
+    id: number; // Int!
+    qualifications: string[]; // [String!]!
+    title: string; // String!
+  }
+  Member: { // root type
+    id: number; // Int!
+    image: string; // String!
+    name: string; // String!
+    title: string; // String!
+  }
+  Merch: { // root type
+    id: number; // Int!
+    image: string; // String!
+    name: string; // String!
+    price: string; // String!
+  }
   Mutation: {};
+  News: { // root type
+    author: string; // String!
+    content: string; // String!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    description: string; // String!
+    id: number; // Int!
+    image: string; // String!
+    tags: string[]; // [String!]!
+    title: string; // String!
+  }
   Post: { // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
@@ -63,8 +116,15 @@ export interface NexusGenObjects {
   User: { // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
+    name: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     username: string; // String!
+  }
+  Vacancy: { // root type
+    company: string; // String!
+    id: number; // Int!
+    title: string; // String!
+    type: string; // String!
   }
 }
 
@@ -78,9 +138,28 @@ export interface NexusGenUnions {
 
 export type NexusGenRootTypes = NexusGenObjects & NexusGenUnions
 
-export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
+export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  Article: { // field return type
+    description: string; // String!
+    id: number; // Int!
+    image: string; // String!
+    postedAt: NexusGenScalars['DateTime']; // DateTime!
+    title: string; // String!
+  }
+  Company: { // field return type
+    address: string; // String!
+    city: string; // String!
+    description: string; // String!
+    email: string; // String!
+    expiredAt: NexusGenScalars['DateTime']; // DateTime!
+    id: number; // Int!
+    image: string; // String!
+    jobs: NexusGenRootTypes['Job'][]; // [Job!]!
+    name: string; // String!
+    postedAt: NexusGenScalars['DateTime']; // DateTime!
+  }
   FieldError: { // field return type
     field: string | null; // String
     message: string | null; // String
@@ -88,12 +167,44 @@ export interface NexusGenFieldTypes {
   FieldErrors: { // field return type
     errors: Array<NexusGenRootTypes['FieldError'] | null> | null; // [FieldError]
   }
+  HeroImage: { // field return type
+    id: number; // Int!
+    image: string; // String!
+  }
+  Job: { // field return type
+    description: string; // String!
+    id: number; // Int!
+    qualifications: string[]; // [String!]!
+    title: string; // String!
+  }
+  Member: { // field return type
+    id: number; // Int!
+    image: string; // String!
+    name: string; // String!
+    title: string; // String!
+  }
+  Merch: { // field return type
+    id: number; // Int!
+    image: string; // String!
+    name: string; // String!
+    price: string; // String!
+  }
   Mutation: { // field return type
     createPost: NexusGenRootTypes['PostPayload']; // PostPayload!
     deletePost: NexusGenRootTypes['Post']; // Post!
     login: NexusGenRootTypes['Auth'] | null; // Auth
     logout: boolean | null; // Boolean
     register: NexusGenRootTypes['Auth']; // Auth!
+  }
+  News: { // field return type
+    author: string; // String!
+    content: string; // String!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    description: string; // String!
+    id: number; // Int!
+    image: string; // String!
+    tags: string[]; // [String!]!
+    title: string; // String!
   }
   Post: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -103,8 +214,17 @@ export interface NexusGenFieldTypes {
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
   Query: { // field return type
+    getArticle: NexusGenRootTypes['Article'] | null; // Article
+    getArticles: NexusGenRootTypes['Article'][]; // [Article!]!
+    getCompanyJobs: NexusGenRootTypes['Company'][]; // [Company!]!
+    getHeroImages: Array<NexusGenRootTypes['HeroImage'] | null>; // [HeroImage]!
+    getMembers: NexusGenRootTypes['Member'][]; // [Member!]!
+    getMerchList: NexusGenRootTypes['Merch'][]; // [Merch!]!
+    getNews: NexusGenRootTypes['News'] | null; // News
+    getNewsItems: NexusGenRootTypes['News'][]; // [News!]!
     getPostById: NexusGenRootTypes['Post']; // Post!
     getUserPosts: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
+    getVacancies: Array<NexusGenRootTypes['Vacancy'] | null>; // [Vacancy]!
     me: NexusGenRootTypes['User'] | null; // User
     posts: NexusGenRootTypes['Post'][]; // [Post!]!
     users: NexusGenRootTypes['User'][]; // [User!]!
@@ -112,13 +232,38 @@ export interface NexusGenFieldTypes {
   User: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
-    posts: NexusGenRootTypes['Post'][]; // [Post!]!
+    name: string; // String!
     updatedAt: NexusGenScalars['DateTime']; // DateTime!
     username: string; // String!
+  }
+  Vacancy: { // field return type
+    company: string; // String!
+    id: number; // Int!
+    title: string; // String!
+    type: string; // String!
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Article: { // field return type name
+    description: 'String'
+    id: 'Int'
+    image: 'String'
+    postedAt: 'DateTime'
+    title: 'String'
+  }
+  Company: { // field return type name
+    address: 'String'
+    city: 'String'
+    description: 'String'
+    email: 'String'
+    expiredAt: 'DateTime'
+    id: 'Int'
+    image: 'String'
+    jobs: 'Job'
+    name: 'String'
+    postedAt: 'DateTime'
+  }
   FieldError: { // field return type name
     field: 'String'
     message: 'String'
@@ -126,12 +271,44 @@ export interface NexusGenFieldTypeNames {
   FieldErrors: { // field return type name
     errors: 'FieldError'
   }
+  HeroImage: { // field return type name
+    id: 'Int'
+    image: 'String'
+  }
+  Job: { // field return type name
+    description: 'String'
+    id: 'Int'
+    qualifications: 'String'
+    title: 'String'
+  }
+  Member: { // field return type name
+    id: 'Int'
+    image: 'String'
+    name: 'String'
+    title: 'String'
+  }
+  Merch: { // field return type name
+    id: 'Int'
+    image: 'String'
+    name: 'String'
+    price: 'String'
+  }
   Mutation: { // field return type name
     createPost: 'PostPayload'
     deletePost: 'Post'
     login: 'Auth'
     logout: 'Boolean'
     register: 'Auth'
+  }
+  News: { // field return type name
+    author: 'String'
+    content: 'String'
+    createdAt: 'DateTime'
+    description: 'String'
+    id: 'Int'
+    image: 'String'
+    tags: 'String'
+    title: 'String'
   }
   Post: { // field return type name
     createdAt: 'DateTime'
@@ -141,8 +318,17 @@ export interface NexusGenFieldTypeNames {
     updatedAt: 'DateTime'
   }
   Query: { // field return type name
+    getArticle: 'Article'
+    getArticles: 'Article'
+    getCompanyJobs: 'Company'
+    getHeroImages: 'HeroImage'
+    getMembers: 'Member'
+    getMerchList: 'Merch'
+    getNews: 'News'
+    getNewsItems: 'News'
     getPostById: 'Post'
     getUserPosts: 'Post'
+    getVacancies: 'Vacancy'
     me: 'User'
     posts: 'Post'
     users: 'User'
@@ -150,9 +336,15 @@ export interface NexusGenFieldTypeNames {
   User: { // field return type name
     createdAt: 'DateTime'
     id: 'Int'
-    posts: 'Post'
+    name: 'String'
     updatedAt: 'DateTime'
     username: 'String'
+  }
+  Vacancy: { // field return type name
+    company: 'String'
+    id: 'Int'
+    title: 'String'
+    type: 'String'
   }
 }
 
@@ -169,13 +361,40 @@ export interface NexusGenArgTypes {
       username: string; // String!
     }
     register: { // args
+      name: string; // String!
       password: string; // String!
       username: string; // String!
     }
   }
   Query: {
+    getArticle: { // args
+      id?: number | null; // Int
+    }
+    getArticles: { // args
+      limit?: number | null; // Int
+      type: NexusGenEnums['ArticleType']; // ArticleType!
+    }
+    getHeroImages: { // args
+      limit: number; // Int!
+    }
+    getMembers: { // args
+      limit: number; // Int!
+    }
+    getMerchList: { // args
+      limit: number; // Int!
+    }
+    getNews: { // args
+      id: number; // Int!
+    }
+    getNewsItems: { // args
+      limit: number; // Int!
+    }
     getPostById: { // args
       id: number; // Int!
+    }
+    getVacancies: { // args
+      limit?: number | null; // Int
+      type: NexusGenEnums['VacancyType']; // VacancyType!
     }
   }
 }
@@ -192,7 +411,7 @@ export type NexusGenObjectNames = keyof NexusGenObjects;
 
 export type NexusGenInputNames = never;
 
-export type NexusGenEnumNames = never;
+export type NexusGenEnumNames = keyof NexusGenEnums;
 
 export type NexusGenInterfaceNames = never;
 

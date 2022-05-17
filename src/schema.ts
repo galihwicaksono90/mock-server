@@ -17,10 +17,8 @@ export const schema = makeSchema({
   plugins: [
     fieldAuthorizePlugin({
       formatError: () => {
-        throw new AuthenticationError("Not authenticated", {
-          mantap: "matnap",
-        });
+        throw new AuthenticationError("Not authenticated");
       },
-   }),
+    }),
   ],
 });

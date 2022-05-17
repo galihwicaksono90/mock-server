@@ -12,25 +12,20 @@ datasource db {
 
 model User {
   id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
   username    String      @unique
+  name        String
   password    String
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  family      Family      @relation(name: "FamilyMembers", fields: [familyId], references: [id])
-  familyId    Int
+  articles    Article[]   @relation(name: "writtenBy")
 }
 
-model Family {
-  id          Int         @id @default(autoincrement())
-  members     User[]      @relation(name: "FamilyMembers")
-  head        User?       @relation(name: "FamilyHead")
-}
-
-model Post {
-  id          Int         @id @default(autoincrement())
-  title       String
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  postedBy    User        @relation(name: "PostedBy", fields: [postedById], references: [id])
-  postedById  Int
+model Article {
+  id           Int         @id @default(autoincrement())
+  title        String
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  description  String
+  writtenBy    User        @relation(name: "writtenBy", fields: [writtenById], references: [id])
+  writtenById  Int
 }

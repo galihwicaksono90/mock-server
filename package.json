@@ -4,9 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --transpile-only --no-notify --exit-child src/index.ts"
+    "dev": "ts-node-dev --transpile-only --no-notify --exit-child src/index.ts",
+    "start": "node src/index.ts"
   },
   "devDependencies": {
+    "@faker-js/faker": "^6.3.1",
     "@types/connect-redis": "^0.0.18",
     "@types/cors": "^2.8.12",
     "@types/express-session": "^1.17.4",
