@@ -7,9 +7,7 @@ import { schema } from "./schema";
 // import connectRedis from "connect-redis";
 import cors from "cors";
 import { COOKIE_NAME, __prod__ } from "./constants";
-
 const port = process.env.PORT || 4000;
-
 // const RedisStore = connectRedis(session);
 
 // declare module "express-session" {
@@ -33,7 +31,12 @@ const main = async () => {
     credentials: true,
   };
 
-  app.use(cors(corsOptions));
+  app.use(
+    cors({
+      origin: "*",
+      credentials: true,
+    })
+  );
   // app.use(
   //   session({
   //     name: COOKIE_NAME,
@@ -56,7 +59,7 @@ const main = async () => {
 
   const server = new ApolloServer({
     schema,
-    plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
+    // plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
     debug: true,
   });
 
@@ -65,7 +68,7 @@ const main = async () => {
   server.applyMiddleware({
     app,
     path: "/graphql",
-    cors: corsOptions,
+    cors: false,
   });
 
   app.listen(port, () => {
