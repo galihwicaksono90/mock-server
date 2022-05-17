@@ -34,9 +34,13 @@ const main = async () => {
     credentials: true,
   };
 
+  const whitelist = [
+    "https://studio.apollographql.com",
+    "http://localhost:3000",
+  ];
   app.use(
     cors({
-      origin: "*",
+      origin: whitelist,
       credentials: true,
     })
   );
