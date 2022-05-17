@@ -1,6 +1,6 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { schema } from "./schema";
 import { context } from "./context";
 import session from "express-session";
@@ -9,7 +9,7 @@ import connectRedis from "connect-redis";
 import cors from "cors";
 import { COOKIE_NAME, __prod__ } from "./constants";
 
-const port = process.env.PORT || 4000;
+const port = 4000;
 
 const RedisStore = connectRedis(session);
 
@@ -58,7 +58,7 @@ const main = async () => {
   const server = new ApolloServer({
     schema,
     context,
-    plugins: [ApolloServerPluginLandingPageLocalDefault],
+    plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
     debug: true,
   });
 
