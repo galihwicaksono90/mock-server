@@ -30,13 +30,7 @@ const main = async () => {
 
   var whitelist = ["https://studio.apollographql.com", "http://localhost:3000"];
   var corsOptions = {
-    origin: function (origin, callback) {
-      if (whitelist.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "https://studio.apollographql.com",
     credentials: true,
   };
   app.use(cors(corsOptions));
