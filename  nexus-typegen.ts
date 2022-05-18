@@ -74,6 +74,7 @@ export interface NexusGenObjects {
   HeroImage: { // root type
     id: number; // Int!
     image: string; // String!
+    message: string; // String!
   }
   Job: { // root type
     description: string; // String!
@@ -152,6 +153,7 @@ export interface NexusGenFieldTypes {
   HeroImage: { // field return type
     id: number; // Int!
     image: string; // String!
+    message: string; // String!
   }
   Job: { // field return type
     description: string; // String!
@@ -230,6 +232,7 @@ export interface NexusGenFieldTypeNames {
   HeroImage: { // field return type name
     id: 'Int'
     image: 'String'
+    message: 'String'
   }
   Job: { // field return type name
     description: 'String'

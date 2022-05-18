@@ -6,12 +6,14 @@ export const HeroImage = objectType({
   definition: (t) => {
     t.nonNull.int("id");
     t.nonNull.string("image");
+    t.nonNull.string("message");
   },
 });
 
 const createImages = (id: number) => ({
   id,
   image: faker.image.technics(1440, 674, true),
+  message: faker.lorem.sentence(),
 });
 
 export const HeroImageQuery = extendType({

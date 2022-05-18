@@ -8,7 +8,7 @@ const createNews = (id: number) => ({
   title: faker.lorem.sentence(),
   description: faker.lorem.paragraph(),
   content: faker.lorem.paragraphs(faker.mersenne.rand(10, 4)),
-  image: faker.image.technics(),
+  image: faker.image.technics(600, 480, true),
   author: faker.name.findName(),
   createdAt: faker.date.past().toISOString(),
   tags: faker.helpers.arrayElements(tags),
