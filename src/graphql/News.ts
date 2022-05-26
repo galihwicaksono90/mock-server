@@ -39,11 +39,9 @@ export const NewsQuery = extendType({
       resolve: (_parent, args, _ctx) => {
         const { limit } = args;
         const news = [];
-
         for (let i = 0; i < limit ?? 4; i++) {
           news.push(createNews(i));
         }
-
         return news;
       },
     });

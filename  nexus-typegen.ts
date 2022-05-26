@@ -31,6 +31,7 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  AboutType: "jurusan" | "organisasi"
   ArticleType: "nonScientific" | "scientific"
   VacancyType: "job" | "scholarship"
 }
@@ -45,6 +46,11 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  About: { // root type
+    description: string; // String!
+    images: string[]; // [String!]!
+    type: string; // String!
+  }
   Article: { // root type
     description: string; // String!
     id: number; // Int!
@@ -105,6 +111,14 @@ export interface NexusGenObjects {
     title: string; // String!
   }
   Query: {};
+  Testimony: { // root type
+    description: string; // String!
+    endYear: number; // Int!
+    id: number; // Int!
+    image: string; // String!
+    name: string; // String!
+    startYear: number; // Int!
+  }
   Vacancy: { // root type
     company: string; // String!
     id: number; // Int!
@@ -124,6 +138,11 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  About: { // field return type
+    description: string; // String!
+    images: string[]; // [String!]!
+    type: string; // String!
+  }
   Article: { // field return type
     description: string; // String!
     id: number; // Int!
@@ -184,6 +203,7 @@ export interface NexusGenFieldTypes {
     title: string; // String!
   }
   Query: { // field return type
+    getAbout: NexusGenRootTypes['About'] | null; // About
     getArticle: NexusGenRootTypes['Article'] | null; // Article
     getArticles: NexusGenRootTypes['Article'][]; // [Article!]!
     getCompanyJobs: NexusGenRootTypes['Company'][]; // [Company!]!
@@ -192,7 +212,16 @@ export interface NexusGenFieldTypes {
     getMerchList: NexusGenRootTypes['Merch'][]; // [Merch!]!
     getNews: NexusGenRootTypes['News'] | null; // News
     getNewsItems: NexusGenRootTypes['News'][]; // [News!]!
+    getTestimonies: NexusGenRootTypes['Testimony'][]; // [Testimony!]!
     getVacancies: Array<NexusGenRootTypes['Vacancy'] | null>; // [Vacancy]!
+  }
+  Testimony: { // field return type
+    description: string; // String!
+    endYear: number; // Int!
+    id: number; // Int!
+    image: string; // String!
+    name: string; // String!
+    startYear: number; // Int!
   }
   Vacancy: { // field return type
     company: string; // String!
@@ -203,6 +232,11 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  About: { // field return type name
+    description: 'String'
+    images: 'String'
+    type: 'String'
+  }
   Article: { // field return type name
     description: 'String'
     id: 'Int'
@@ -263,6 +297,7 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
   }
   Query: { // field return type name
+    getAbout: 'About'
     getArticle: 'Article'
     getArticles: 'Article'
     getCompanyJobs: 'Company'
@@ -271,7 +306,16 @@ export interface NexusGenFieldTypeNames {
     getMerchList: 'Merch'
     getNews: 'News'
     getNewsItems: 'News'
+    getTestimonies: 'Testimony'
     getVacancies: 'Vacancy'
+  }
+  Testimony: { // field return type name
+    description: 'String'
+    endYear: 'Int'
+    id: 'Int'
+    image: 'String'
+    name: 'String'
+    startYear: 'Int'
   }
   Vacancy: { // field return type name
     company: 'String'
@@ -283,6 +327,9 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Query: {
+    getAbout: { // args
+      type: NexusGenEnums['AboutType']; // AboutType!
+    }
     getArticle: { // args
       id: number; // Int!
     }
@@ -303,6 +350,9 @@ export interface NexusGenArgTypes {
       id: number; // Int!
     }
     getNewsItems: { // args
+      limit: number; // Int!
+    }
+    getTestimonies: { // args
       limit: number; // Int!
     }
     getVacancies: { // args

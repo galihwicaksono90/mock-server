@@ -7,3 +7,5 @@ export * from "./Member";
 export * from "./Merch";
 export * from "./scalars/Date";
 export * from "./Vacancy";
+export * from "./Testimony";
+export * from "./About";

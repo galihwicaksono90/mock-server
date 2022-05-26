@@ -2,6 +2,17 @@
 ### Do not make changes to this file directly
 
 
+type About {
+  description: String!
+  images: [String!]!
+  type: String!
+}
+
+enum AboutType {
+  jurusan
+  organisasi
+}
+
 type Article {
   description: String!
   id: Int!
@@ -81,6 +92,7 @@ type News {
 }
 
 type Query {
+  getAbout(type: AboutType!): About
   getArticle(id: Int!): Article
   getArticles(limit: Int!, type: ArticleType!): [Article!]!
   getCompanyJobs: [Company!]!
@@ -89,7 +101,17 @@ type Query {
   getMerchList(limit: Int!): [Merch!]!
   getNews(id: Int!): News
   getNewsItems(limit: Int!): [News!]!
+  getTestimonies(limit: Int!): [Testimony!]!
   getVacancies(limit: Int, type: VacancyType!): [Vacancy]!
+}
+
+type Testimony {
+  description: String!
+  endYear: Int!
+  id: Int!
+  image: String!
+  name: String!
+  startYear: Int!
 }
 
 type Vacancy {
