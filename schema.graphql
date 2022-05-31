@@ -4,7 +4,7 @@
 
 type About {
   description: String!
-  images: [String!]!
+  image: String!
   type: String!
 }
 
@@ -24,6 +24,11 @@ type Article {
 enum ArticleType {
   nonScientific
   scientific
+}
+
+type AuthPayload {
+  token: String
+  user: User
 }
 
 type Company {
@@ -80,6 +85,11 @@ type Merch {
   price: String!
 }
 
+type Mutation {
+  login(nim: Int!, password: String!): AuthPayload!
+  validateResetToken(token: String): Boolean!
+}
+
 type News {
   author: String!
   content: String!
@@ -105,6 +115,10 @@ type Query {
   getVacancies(limit: Int, type: VacancyType!): [Vacancy]!
 }
 
+type ResetToken {
+  token: String!
+}
+
 type Testimony {
   description: String!
   endYear: Int!
@@ -112,6 +126,19 @@ type Testimony {
   image: String!
   name: String!
   startYear: Int!
+}
+
+type User {
+  email: String!
+  fullName: String!
+  id: Int!
+  role: String!
+}
+
+enum UserRole {
+  admin
+  guess
+  user
 }
 
 type Vacancy {

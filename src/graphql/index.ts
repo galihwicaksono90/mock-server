@@ -9,3 +9,5 @@ export * from "./scalars/Date";
 export * from "./Vacancy";
 export * from "./Testimony";
 export * from "./About";
+export * from "./Auth";
+export * from "./User";

@@ -4,6 +4,7 @@
  */
 
 
+import type { Context } from "./src/context"
 import type { core } from "nexus"
 declare global {
   interface NexusGenCustomInputMethods<TypeName extends string> {
@@ -33,6 +34,7 @@ export interface NexusGenInputs {
 export interface NexusGenEnums {
   AboutType: "jurusan" | "organisasi"
   ArticleType: "nonScientific" | "scientific"
+  UserRole: "admin" | "guess" | "user"
   VacancyType: "job" | "scholarship"
 }
 
@@ -48,7 +50,7 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   About: { // root type
     description: string; // String!
-    images: string[]; // [String!]!
+    image: string; // String!
     type: string; // String!
   }
   Article: { // root type
@@ -57,6 +59,10 @@ export interface NexusGenObjects {
     image: string; // String!
     postedAt: NexusGenScalars['DateTime']; // DateTime!
     title: string; // String!
+  }
+  AuthPayload: { // root type
+    token?: string | null; // String
+    user?: NexusGenRootTypes['User'] | null; // User
   }
   Company: { // root type
     address: string; // String!
@@ -100,6 +106,7 @@ export interface NexusGenObjects {
     name: string; // String!
     price: string; // String!
   }
+  Mutation: {};
   News: { // root type
     author: string; // String!
     content: string; // String!
@@ -111,6 +118,9 @@ export interface NexusGenObjects {
     title: string; // String!
   }
   Query: {};
+  ResetToken: { // root type
+    token: string; // String!
+  }
   Testimony: { // root type
     description: string; // String!
     endYear: number; // Int!
@@ -118,6 +128,12 @@ export interface NexusGenObjects {
     image: string; // String!
     name: string; // String!
     startYear: number; // Int!
+  }
+  User: { // root type
+    email: string; // String!
+    fullName: string; // String!
+    id: number; // Int!
+    role: string; // String!
   }
   Vacancy: { // root type
     company: string; // String!
@@ -140,7 +156,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnu
 export interface NexusGenFieldTypes {
   About: { // field return type
     description: string; // String!
-    images: string[]; // [String!]!
+    image: string; // String!
     type: string; // String!
   }
   Article: { // field return type
@@ -149,6 +165,10 @@ export interface NexusGenFieldTypes {
     image: string; // String!
     postedAt: NexusGenScalars['DateTime']; // DateTime!
     title: string; // String!
+  }
+  AuthPayload: { // field return type
+    token: string | null; // String
+    user: NexusGenRootTypes['User'] | null; // User
   }
   Company: { // field return type
     address: string; // String!
@@ -192,6 +212,10 @@ export interface NexusGenFieldTypes {
     name: string; // String!
     price: string; // String!
   }
+  Mutation: { // field return type
+    login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    validateResetToken: boolean; // Boolean!
+  }
   News: { // field return type
     author: string; // String!
     content: string; // String!
@@ -215,6 +239,9 @@ export interface NexusGenFieldTypes {
     getTestimonies: NexusGenRootTypes['Testimony'][]; // [Testimony!]!
     getVacancies: Array<NexusGenRootTypes['Vacancy'] | null>; // [Vacancy]!
   }
+  ResetToken: { // field return type
+    token: string; // String!
+  }
   Testimony: { // field return type
     description: string; // String!
     endYear: number; // Int!
@@ -222,6 +249,12 @@ export interface NexusGenFieldTypes {
     image: string; // String!
     name: string; // String!
     startYear: number; // Int!
+  }
+  User: { // field return type
+    email: string; // String!
+    fullName: string; // String!
+    id: number; // Int!
+    role: string; // String!
   }
   Vacancy: { // field return type
     company: string; // String!
@@ -234,7 +267,7 @@ export interface NexusGenFieldTypes {
 export interface NexusGenFieldTypeNames {
   About: { // field return type name
     description: 'String'
-    images: 'String'
+    image: 'String'
     type: 'String'
   }
   Article: { // field return type name
@@ -243,6 +276,10 @@ export interface NexusGenFieldTypeNames {
     image: 'String'
     postedAt: 'DateTime'
     title: 'String'
+  }
+  AuthPayload: { // field return type name
+    token: 'String'
+    user: 'User'
   }
   Company: { // field return type name
     address: 'String'
@@ -286,6 +323,10 @@ export interface NexusGenFieldTypeNames {
     name: 'String'
     price: 'String'
   }
+  Mutation: { // field return type name
+    login: 'AuthPayload'
+    validateResetToken: 'Boolean'
+  }
   News: { // field return type name
     author: 'String'
     content: 'String'
@@ -309,6 +350,9 @@ export interface NexusGenFieldTypeNames {
     getTestimonies: 'Testimony'
     getVacancies: 'Vacancy'
   }
+  ResetToken: { // field return type name
+    token: 'String'
+  }
   Testimony: { // field return type name
     description: 'String'
     endYear: 'Int'
@@ -316,6 +360,12 @@ export interface NexusGenFieldTypeNames {
     image: 'String'
     name: 'String'
     startYear: 'Int'
+  }
+  User: { // field return type name
+    email: 'String'
+    fullName: 'String'
+    id: 'Int'
+    role: 'String'
   }
   Vacancy: { // field return type name
     company: 'String'
@@ -326,6 +376,15 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    login: { // args
+      nim: number; // Int!
+      password: string; // String!
+    }
+    validateResetToken: { // args
+      token?: string | null; // String
+    }
+  }
   Query: {
     getAbout: { // args
       type: NexusGenEnums['AboutType']; // AboutType!
@@ -393,7 +452,7 @@ export type NexusGenFeaturesConfig = {
 }
 
 export interface NexusGenTypes {
-  context: any;
+  context: Context;
   inputTypes: NexusGenInputs;
   rootTypes: NexusGenRootTypes;
   inputTypeShapes: NexusGenInputs & NexusGenEnums & NexusGenScalars;

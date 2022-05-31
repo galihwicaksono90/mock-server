@@ -2,13 +2,9 @@ import faker from "@faker-js/faker";
 import { extendType, objectType, enumType, nonNull } from "nexus";
 
 const createAbout = (type: string) => {
-  let images: string[] = [];
-  for (let i = 0; i < 3; i++) {
-    images.push(faker.image.business(undefined, undefined, true));
-  }
   return {
-    description: faker.lorem.paragraphs(5),
-    images,
+    description: faker.lorem.paragraphs(50, "\n\n"),
+    image: faker.image.business(undefined, undefined, true),
     type,
   };
 };
@@ -22,7 +18,7 @@ export const About = objectType({
   name: "About",
   definition: (t) => {
     t.nonNull.string("description");
-    t.nonNull.list.nonNull.string("images");
+    t.nonNull.string("image");
     t.nonNull.string("type");
   },
 });

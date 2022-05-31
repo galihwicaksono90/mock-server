@@ -16,7 +16,7 @@ export const Testimony = objectType({
 const createTestimony = (id: number) => ({
   id,
   name: faker.name.findName(),
-  description: faker.lorem.paragraph(7),
+  description: faker.lorem.paragraph(5),
   startYear: 2013,
   endYear: 2015,
   image: faker.image.avatar(),
