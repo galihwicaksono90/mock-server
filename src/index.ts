@@ -20,7 +20,7 @@ const main = async () => {
 
   const whitelist = [
     "https://studio.apollographql.com",
-    "https://dev.ikataupn.co.id",
+    "https://dev.ikataupn.or.id",
     "http://localhost:3000",
   ];
 
