@@ -33,7 +33,7 @@ const main = async () => {
   const server = new ApolloServer({
     schema,
     context,
-    plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
+    plugins: [ApolloServerPluginLandingPageLocalDefault()],
     debug: true,
     introspection: true,
   });

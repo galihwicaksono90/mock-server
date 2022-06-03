@@ -13,6 +13,11 @@ enum AboutType {
   organisasi
 }
 
+type Area {
+  id: Int!
+  name: String!
+}
+
 type Article {
   description: String!
   id: Int!
@@ -72,6 +77,7 @@ type Job {
 }
 
 type Member {
+  field: String!
   id: Int!
   image: String!
   name: String!
@@ -87,6 +93,7 @@ type Merch {
 
 type Mutation {
   login(nim: Int!, password: String!): AuthPayload!
+  register(classYear: String!, confirmPassword: String!, email: String!, fullName: String!, gender: String!, nim: Int!, password: String!, phone: Int!, prefixTitle: String, suffixTitle: String): User!
   validateResetToken(token: String): Boolean!
 }
 
@@ -103,11 +110,12 @@ type News {
 
 type Query {
   getAbout(type: AboutType!): About
+  getAreas: [Area!]!
   getArticle(id: Int!): Article
   getArticles(limit: Int!, type: ArticleType!): [Article!]!
   getCompanyJobs: [Company!]!
   getHeroImages(limit: Int!): [HeroImage]!
-  getMembers(limit: Int!): [Member!]!
+  getMembers(field: String!, limit: Int!): [Member!]!
   getMerchList(limit: Int!): [Merch!]!
   getNews(id: Int!): News
   getNewsItems(limit: Int!): [News!]!

@@ -53,6 +53,10 @@ export interface NexusGenObjects {
     image: string; // String!
     type: string; // String!
   }
+  Area: { // root type
+    id: number; // Int!
+    name: string; // String!
+  }
   Article: { // root type
     description: string; // String!
     id: number; // Int!
@@ -95,6 +99,7 @@ export interface NexusGenObjects {
     title: string; // String!
   }
   Member: { // root type
+    field: string; // String!
     id: number; // Int!
     image: string; // String!
     name: string; // String!
@@ -159,6 +164,10 @@ export interface NexusGenFieldTypes {
     image: string; // String!
     type: string; // String!
   }
+  Area: { // field return type
+    id: number; // Int!
+    name: string; // String!
+  }
   Article: { // field return type
     description: string; // String!
     id: number; // Int!
@@ -201,6 +210,7 @@ export interface NexusGenFieldTypes {
     title: string; // String!
   }
   Member: { // field return type
+    field: string; // String!
     id: number; // Int!
     image: string; // String!
     name: string; // String!
@@ -214,6 +224,7 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    register: NexusGenRootTypes['User']; // User!
     validateResetToken: boolean; // Boolean!
   }
   News: { // field return type
@@ -228,6 +239,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     getAbout: NexusGenRootTypes['About'] | null; // About
+    getAreas: NexusGenRootTypes['Area'][]; // [Area!]!
     getArticle: NexusGenRootTypes['Article'] | null; // Article
     getArticles: NexusGenRootTypes['Article'][]; // [Article!]!
     getCompanyJobs: NexusGenRootTypes['Company'][]; // [Company!]!
@@ -269,6 +281,10 @@ export interface NexusGenFieldTypeNames {
     description: 'String'
     image: 'String'
     type: 'String'
+  }
+  Area: { // field return type name
+    id: 'Int'
+    name: 'String'
   }
   Article: { // field return type name
     description: 'String'
@@ -312,6 +328,7 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
   }
   Member: { // field return type name
+    field: 'String'
     id: 'Int'
     image: 'String'
     name: 'String'
@@ -325,6 +342,7 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     login: 'AuthPayload'
+    register: 'User'
     validateResetToken: 'Boolean'
   }
   News: { // field return type name
@@ -339,6 +357,7 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     getAbout: 'About'
+    getAreas: 'Area'
     getArticle: 'Article'
     getArticles: 'Article'
     getCompanyJobs: 'Company'
@@ -381,6 +400,18 @@ export interface NexusGenArgTypes {
       nim: number; // Int!
       password: string; // String!
     }
+    register: { // args
+      classYear: string; // String!
+      confirmPassword: string; // String!
+      email: string; // String!
+      fullName: string; // String!
+      gender: string; // String!
+      nim: number; // Int!
+      password: string; // String!
+      phone: number; // Int!
+      prefixTitle?: string | null; // String
+      suffixTitle?: string | null; // String
+    }
     validateResetToken: { // args
       token?: string | null; // String
     }
@@ -400,6 +431,7 @@ export interface NexusGenArgTypes {
       limit: number; // Int!
     }
     getMembers: { // args
+      field: string; // String!
       limit: number; // Int!
     }
     getMerchList: { // args

@@ -11,3 +11,4 @@ export * from "./Testimony";
 export * from "./About";
 export * from "./Auth";
 export * from "./User";
+export * from "./Area";

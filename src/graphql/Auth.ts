@@ -11,6 +11,19 @@ import { REFRESH_SECRET } from "../utils/auth";
 
 const APP_SECRET = "password";
 
+const registerArgs = {
+  fullName: nonNull(stringArg()),
+  prefixTitle: stringArg(),
+  suffixTitle: stringArg(),
+  email: nonNull(stringArg()),
+  phone: nonNull(intArg()),
+  gender: nonNull(stringArg()),
+  classYear: nonNull(stringArg()),
+  nim: nonNull(intArg()),
+  password: nonNull(stringArg()),
+  confirmPassword: nonNull(stringArg()),
+};
+
 export const ResetToken = objectType({
   name: "ResetToken",
   definition: (t) => {
@@ -73,6 +86,33 @@ export const AuthMutation = extendType({
             role: "user",
             email: "galihwicaksono90@gmail.com",
           },
+        };
+      },
+    });
+    t.nonNull.field("register", {
+      type: "User",
+      args: {
+        fullName: nonNull(stringArg()),
+        prefixTitle: stringArg(),
+        suffixTitle: stringArg(),
+        email: nonNull(stringArg()),
+        phone: nonNull(intArg()),
+        gender: nonNull(stringArg()),
+        classYear: nonNull(stringArg()),
+        nim: nonNull(intArg()),
+        password: nonNull(stringArg()),
+        confirmPassword: nonNull(stringArg()),
+      },
+      resolve: (parent, args, ctx) => {
+        const { fullName, email, nim } = args;
+        if (nim === 1234) {
+          throw new Error("Nomor Induk Mahasiswa sudah terdaftar");
+        }
+        return {
+          id: 69,
+          fullName,
+          email,
+          role: "user",
         };
       },
     });
