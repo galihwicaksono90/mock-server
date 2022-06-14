@@ -13,6 +13,7 @@ const createMember = (id: number, field: string) => ({
   name: faker.name.findName(),
   title: faker.name.jobTitle(),
   image: faker.image.avatar(),
+  email: faker.internet.email(),
   field,
 });
 
@@ -24,6 +25,7 @@ export const Member = objectType({
     t.nonNull.string("title");
     t.nonNull.string("image");
     t.nonNull.string("field");
+    t.nonNull.string("email");
   },
 });
 
