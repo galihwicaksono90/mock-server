@@ -22,6 +22,7 @@ const main = async () => {
     "https://studio.apollographql.com",
     "https://dev.ikataupn.or.id",
     "http://localhost:3000",
+    "https://ikata.vercel.app/",
   ];
 
   app.use(

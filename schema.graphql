@@ -77,6 +77,8 @@ type Job {
 }
 
 type Member {
+  classYear: Int!
+  email: String!
   field: String!
   id: Int!
   image: String!

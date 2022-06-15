@@ -99,6 +99,8 @@ export interface NexusGenObjects {
     title: string; // String!
   }
   Member: { // root type
+    classYear: number; // Int!
+    email: string; // String!
     field: string; // String!
     id: number; // Int!
     image: string; // String!
@@ -210,6 +212,8 @@ export interface NexusGenFieldTypes {
     title: string; // String!
   }
   Member: { // field return type
+    classYear: number; // Int!
+    email: string; // String!
     field: string; // String!
     id: number; // Int!
     image: string; // String!
@@ -328,6 +332,8 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
   }
   Member: { // field return type name
+    classYear: 'Int'
+    email: 'String'
     field: 'String'
     id: 'Int'
     image: 'String'
