@@ -1,11 +1,4 @@
-import {
-  objectType,
-  extendType,
-  nonNull,
-  intArg,
-  enumType,
-  stringArg,
-} from "nexus";
+import { objectType, extendType, nonNull, intArg, stringArg } from "nexus";
 import faker from "@faker-js/faker";
 
 const createMember = (id: number, field: string) => ({
@@ -15,6 +8,7 @@ const createMember = (id: number, field: string) => ({
   image: faker.image.avatar(),
   email: faker.internet.email(),
   field,
+  classYear: faker.mersenne.rand(2018, 1960),
 });
 
 export const Member = objectType({
@@ -26,6 +20,7 @@ export const Member = objectType({
     t.nonNull.string("image");
     t.nonNull.string("field");
     t.nonNull.string("email");
+    t.nonNull.int("classYear");
   },
 });
 
