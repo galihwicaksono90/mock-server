@@ -12,3 +12,4 @@ export * from "./About";
 export * from "./Auth";
 export * from "./User";
 export * from "./Area";
+export * from "./Activity";

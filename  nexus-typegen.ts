@@ -53,6 +53,13 @@ export interface NexusGenObjects {
     image: string; // String!
     type: string; // String!
   }
+  Activity: { // root type
+    description: string; // String!
+    id: number; // Int!
+    image: string; // String!
+    postedAt: NexusGenScalars['DateTime']; // DateTime!
+    title: string; // String!
+  }
   Area: { // root type
     id: number; // Int!
     name: string; // String!
@@ -166,6 +173,13 @@ export interface NexusGenFieldTypes {
     image: string; // String!
     type: string; // String!
   }
+  Activity: { // field return type
+    description: string; // String!
+    id: number; // Int!
+    image: string; // String!
+    postedAt: NexusGenScalars['DateTime']; // DateTime!
+    title: string; // String!
+  }
   Area: { // field return type
     id: number; // Int!
     name: string; // String!
@@ -243,6 +257,8 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     getAbout: NexusGenRootTypes['About'] | null; // About
+    getActivites: NexusGenRootTypes['Activity'][]; // [Activity!]!
+    getActivity: NexusGenRootTypes['Activity'] | null; // Activity
     getAreas: NexusGenRootTypes['Area'][]; // [Area!]!
     getArticle: NexusGenRootTypes['Article'] | null; // Article
     getArticles: NexusGenRootTypes['Article'][]; // [Article!]!
@@ -285,6 +301,13 @@ export interface NexusGenFieldTypeNames {
     description: 'String'
     image: 'String'
     type: 'String'
+  }
+  Activity: { // field return type name
+    description: 'String'
+    id: 'Int'
+    image: 'String'
+    postedAt: 'DateTime'
+    title: 'String'
   }
   Area: { // field return type name
     id: 'Int'
@@ -363,6 +386,8 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     getAbout: 'About'
+    getActivites: 'Activity'
+    getActivity: 'Activity'
     getAreas: 'Area'
     getArticle: 'Article'
     getArticles: 'Article'
@@ -425,6 +450,12 @@ export interface NexusGenArgTypes {
   Query: {
     getAbout: { // args
       type: NexusGenEnums['AboutType']; // AboutType!
+    }
+    getActivites: { // args
+      limit: number; // Int!
+    }
+    getActivity: { // args
+      id: number; // Int!
     }
     getArticle: { // args
       id: number; // Int!

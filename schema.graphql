@@ -13,6 +13,14 @@ enum AboutType {
   organisasi
 }
 
+type Activity {
+  description: String!
+  id: Int!
+  image: String!
+  postedAt: DateTime!
+  title: String!
+}
+
 type Area {
   id: Int!
   name: String!
@@ -112,6 +120,8 @@ type News {
 
 type Query {
   getAbout(type: AboutType!): About
+  getActivites(limit: Int!): [Activity!]!
+  getActivity(id: Int!): Activity
   getAreas: [Area!]!
   getArticle(id: Int!): Article
   getArticles(limit: Int!, type: ArticleType!): [Article!]!
