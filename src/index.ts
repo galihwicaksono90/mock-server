@@ -21,7 +21,7 @@ const main = async () => {
   const whitelist = [
     "https://studio.apollographql.com",
     "https://dev.ikataupn.or.id",
-    "https://ikata.vercel.app/",
+    "https://ikata.vercel.app",
     "http://localhost:3000",
   ];
 
