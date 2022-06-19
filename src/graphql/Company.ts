@@ -67,9 +67,9 @@ export const CompanyQuery = extendType({
     t.nonNull.list.nonNull.field("getCompanyJobs", {
       type: "Company",
       resolve: (_parent, _args, _ctx) => {
-        const n = Math.random() * 3 + 1;
+        const n = Math.random() * 12 + 1;
         const c = [];
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < n; i++) {
           c.push(createCompany(i));
         }
         return c;

@@ -13,3 +13,4 @@ export * from "./Auth";
 export * from "./User";
 export * from "./Area";
 export * from "./Activity";
+export * from "./Alumni";

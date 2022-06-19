@@ -35,7 +35,7 @@ export interface NexusGenEnums {
   AboutType: "jurusan" | "organisasi"
   ArticleType: "nonScientific" | "scientific"
   UserRole: "admin" | "guess" | "user"
-  VacancyType: "job" | "scholarship"
+  VacancyType: "finalProject" | "job" | "scholarship"
 }
 
 export interface NexusGenScalars {
@@ -59,6 +59,11 @@ export interface NexusGenObjects {
     image: string; // String!
     postedAt: NexusGenScalars['DateTime']; // DateTime!
     title: string; // String!
+  }
+  Alumni: { // root type
+    id: number; // Int!
+    image: string; // String!
+    name: string; // String!
   }
   Area: { // root type
     id: number; // Int!
@@ -152,6 +157,7 @@ export interface NexusGenObjects {
   Vacancy: { // root type
     company: string; // String!
     id: number; // Int!
+    image: string; // String!
     title: string; // String!
     type: string; // String!
   }
@@ -179,6 +185,11 @@ export interface NexusGenFieldTypes {
     image: string; // String!
     postedAt: NexusGenScalars['DateTime']; // DateTime!
     title: string; // String!
+  }
+  Alumni: { // field return type
+    id: number; // Int!
+    image: string; // String!
+    name: string; // String!
   }
   Area: { // field return type
     id: number; // Int!
@@ -257,8 +268,9 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     getAbout: NexusGenRootTypes['About'] | null; // About
-    getActivites: NexusGenRootTypes['Activity'][]; // [Activity!]!
+    getActivities: NexusGenRootTypes['Activity'][]; // [Activity!]!
     getActivity: NexusGenRootTypes['Activity'] | null; // Activity
+    getAlumniBusinesses: Array<NexusGenRootTypes['Alumni'] | null>; // [Alumni]!
     getAreas: NexusGenRootTypes['Area'][]; // [Area!]!
     getArticle: NexusGenRootTypes['Article'] | null; // Article
     getArticles: NexusGenRootTypes['Article'][]; // [Article!]!
@@ -291,6 +303,7 @@ export interface NexusGenFieldTypes {
   Vacancy: { // field return type
     company: string; // String!
     id: number; // Int!
+    image: string; // String!
     title: string; // String!
     type: string; // String!
   }
@@ -308,6 +321,11 @@ export interface NexusGenFieldTypeNames {
     image: 'String'
     postedAt: 'DateTime'
     title: 'String'
+  }
+  Alumni: { // field return type name
+    id: 'Int'
+    image: 'String'
+    name: 'String'
   }
   Area: { // field return type name
     id: 'Int'
@@ -386,8 +404,9 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     getAbout: 'About'
-    getActivites: 'Activity'
+    getActivities: 'Activity'
     getActivity: 'Activity'
+    getAlumniBusinesses: 'Alumni'
     getAreas: 'Area'
     getArticle: 'Article'
     getArticles: 'Article'
@@ -420,6 +439,7 @@ export interface NexusGenFieldTypeNames {
   Vacancy: { // field return type name
     company: 'String'
     id: 'Int'
+    image: 'String'
     title: 'String'
     type: 'String'
   }
@@ -451,11 +471,14 @@ export interface NexusGenArgTypes {
     getAbout: { // args
       type: NexusGenEnums['AboutType']; // AboutType!
     }
-    getActivites: { // args
+    getActivities: { // args
       limit: number; // Int!
     }
     getActivity: { // args
       id: number; // Int!
+    }
+    getAlumniBusinesses: { // args
+      limit: number; // Int!
     }
     getArticle: { // args
       id: number; // Int!
@@ -484,7 +507,6 @@ export interface NexusGenArgTypes {
       limit: number; // Int!
     }
     getVacancies: { // args
-      limit?: number | null; // Int
       type: NexusGenEnums['VacancyType']; // VacancyType!
     }
   }

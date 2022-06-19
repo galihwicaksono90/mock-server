@@ -3,7 +3,7 @@ import faker from "@faker-js/faker";
 
 export const VacancyType = enumType({
   name: "VacancyType",
-  members: ["job", "scholarship"],
+  members: ["job", "scholarship", "finalProject"],
 });
 
 export const Vacancy = objectType({
@@ -13,6 +13,7 @@ export const Vacancy = objectType({
     t.nonNull.string("title");
     t.nonNull.string("company");
     t.nonNull.string("type");
+    t.nonNull.string("image");
   },
 });
 
@@ -21,6 +22,7 @@ const createVacancy = (id: number, type: string) => {
     id,
     title: faker.name.jobTitle(),
     company: faker.company.companyName(),
+    image: faker.image.business(undefined, undefined, true),
     type,
   };
 };
@@ -32,13 +34,16 @@ export const VacancyQuery = extendType({
       type: "Vacancy",
       args: {
         type: nonNull(VacancyType),
-        limit: intArg(),
       },
       resolve: (_parent, args, _ctx) => {
-        const { limit, type } = args;
+        const { type } = args;
         const vacancies = [];
 
-        for (let i = 0; i < (limit ?? 4); i++) {
+        let n = Math.random() * 12;
+        if (args.type === "finalProject") {
+          n = 0;
+        }
+        for (let i = 0; i < n; i++) {
           vacancies.push(createVacancy(i, type));
         }
 

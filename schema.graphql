@@ -21,6 +21,12 @@ type Activity {
   title: String!
 }
 
+type Alumni {
+  id: Int!
+  image: String!
+  name: String!
+}
+
 type Area {
   id: Int!
   name: String!
@@ -120,8 +126,9 @@ type News {
 
 type Query {
   getAbout(type: AboutType!): About
-  getActivites(limit: Int!): [Activity!]!
+  getActivities(limit: Int!): [Activity!]!
   getActivity(id: Int!): Activity
+  getAlumniBusinesses(limit: Int!): [Alumni]!
   getAreas: [Area!]!
   getArticle(id: Int!): Article
   getArticles(limit: Int!, type: ArticleType!): [Article!]!
@@ -132,7 +139,7 @@ type Query {
   getNews(id: Int!): News
   getNewsItems(limit: Int!): [News!]!
   getTestimonies(limit: Int!): [Testimony!]!
-  getVacancies(limit: Int, type: VacancyType!): [Vacancy]!
+  getVacancies(type: VacancyType!): [Vacancy]!
 }
 
 type ResetToken {
@@ -164,11 +171,13 @@ enum UserRole {
 type Vacancy {
   company: String!
   id: Int!
+  image: String!
   title: String!
   type: String!
 }
 
 enum VacancyType {
+  finalProject
   job
   scholarship
 }

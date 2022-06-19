@@ -44,7 +44,7 @@ export const ArticleQuery = extendType({
         const { limit = 4 } = args;
         const articles = [];
 
-        for (let i = 0; i < (limit || 4); i++) {
+        for (let i = 0; i < limit; i++) {
           articles.push(createArticle(i));
         }
 

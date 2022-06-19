@@ -15,9 +15,9 @@ export const Activity = objectType({
 const createActivities = (id: number) => ({
   id,
   title: faker.lorem.sentence(),
-  description: faker.lorem.paragraph(),
+  description: faker.lorem.paragraph(9),
   postedAt: faker.date.past().toISOString(),
-  image: faker.image.nightlife(680, 480, true),
+  image: faker.image.sports(680, 480, true),
 });
 
 export const ActivityQuery = extendType({
@@ -32,7 +32,7 @@ export const ActivityQuery = extendType({
         return createActivities(args.id);
       },
     });
-    t.nonNull.list.nonNull.field("getActivites", {
+    t.nonNull.list.nonNull.field("getActivities", {
       type: "Activity",
       args: { limit: nonNull(intArg()) },
       resolve: async (_parent, args, _ctx) => {
