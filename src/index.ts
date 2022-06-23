@@ -29,8 +29,8 @@ const main = async () => {
   //
   app.use(
     cors({
-      origin: "*",
-      credentials: false,
+      origin: whitelist,
+      credentials: true,
     })
   );
 
@@ -47,7 +47,7 @@ const main = async () => {
   server.applyMiddleware({
     app,
     path: "/graphql",
-    cors: false,
+    cors: true,
   });
 
   app.listen(port, () => {
