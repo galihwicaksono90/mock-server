@@ -47,7 +47,7 @@ const main = async () => {
   server.applyMiddleware({
     app,
     path: "/graphql",
-    cors: true,
+    cors: false,
   });
 
   app.listen(port, () => {
