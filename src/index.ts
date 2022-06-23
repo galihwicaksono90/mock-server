@@ -25,12 +25,13 @@ const main = async () => {
     "http://localhost:3000",
   ];
 
-  app.use(
-    cors({
-      origin: whitelist,
-      credentials: true,
-    })
-  );
+  app.use(cors());
+  // app.use(
+  //   cors({
+  //     origin: whitelist,
+  //     credentials: true,
+  //   })
+  // );
 
   const server = new ApolloServer({
     schema,
